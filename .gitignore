@@ -7,3 +7,7 @@
 将删除 weixin-core/target/
 将删除 weixin-web/src/main/resources/templates/user/
 将删除 weixin-web/target/
+/.idea/
+/weixin.iml
+/weixin-core/weixin-core.iml
+/weixin-web/weixin-web.iml
