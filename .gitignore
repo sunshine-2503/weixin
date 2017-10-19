@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+将删除 .gitignore
+将删除 .idea/inspectionProfiles/
+将删除 .idea/vcs.xml
+将删除 .idea/workspace.xml
+将删除 weixin-core/src/test/
+将删除 weixin-core/target/
+将删除 weixin-web/src/main/resources/templates/user/
+将删除 weixin-web/target/
