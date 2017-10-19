@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="application.properties"/>
+
+    <!-- 指定数据连接驱动jar地址 -->
+    <classPathEntry location="${spring.datasource.driver}"/>
+
+    <!-- 一个数据库一个context -->
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!-- 注释 -->
+        <commentGenerator>
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否取消自动生成注释 true：不生成注释 ： false:生成注释 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库链接URL，用户名、密码 -->
+        <jdbcConnection
+                driverClass="${spring.datasource.driver-class-name}"
+                connectionURL="${spring.datasource.url}"
+                userId="${spring.datasource.username}"
+                password="${spring.datasource.password}">
+        </jdbcConnection>
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体类位置 -->
+        <javaModelGenerator targetPackage="com.shaoming.model" targetProject="MAVEN">
+            <!-- 是否在当前路径下新加一层schema,eg：false:com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成mapper.xml文件 -->
+        <sqlMapGenerator targetPackage="com.shaoming.mapper" targetProject="MAVEN">
+            <!-- 是否在当前路径下新加一层schema,eg：false:com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- 生成mapper.xml对应client，也就是接口dao -->
+        <!--
+        客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+            type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+            type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+            type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.shaoming.dao" targetProject="MAVEN">
+            <!-- 是否在当前路径下新加一层schema,eg：false:com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName 是数据库中的表名或视图名 domainObjectName 是实体类名 -->
+        <!-- 示例 -->
+        <table tableName="h_user" domainObjectName="User"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <!-- 指定数据库字段转化为实体类后对应的 Java 类型，有必要时再指定 -->
+            <!--<columnOverride column="age" javaType="Integer"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
