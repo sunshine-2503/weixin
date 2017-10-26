@@ -26,12 +26,17 @@ public class WeiXinUtil {
     // 自定义菜单创建
     public static final String MENU_CREATE = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
+    //获取二维码ticket
+    public static final String CODE_TICKET = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
+
     // 用户授权链接
     public static final String AUTHORIZE = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
     // 获取授权的access_token
     public static final String AUTH_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
     // 获取用户信息
     public static final String USER_INFO = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+    // 授权回调链接
+    public static final String REDIRECT_URI = "http://shaoming.free.ngrok.cc/user/weixinCallBack";
 
     /**
      * 获取 ACCESS_TOKEN
@@ -83,7 +88,7 @@ public class WeiXinUtil {
         ViewButton button3_3 = new ViewButton();
         button3_3.setType("view");
         button3_3.setName("弘承持信商城");
-        button3_3.setUrl("http://sunshine2503.free.ngrok.cc/user/index");
+        button3_3.setUrl("http://shaoming.free.ngrok.cc/user/index");
 
         Button button3 = new Button();
         button3.setName("菜单");
@@ -104,5 +109,17 @@ public class WeiXinUtil {
         // 将json字符串转换为json对象
         JSONObject jo = JSONObject.parseObject(jsonStr);
         return jo.getInteger("errcode");
+    }
+
+    /**
+     * 生成二维码
+     */
+    public static String createQRCode(String type, String param){
+        String tempNumParam = "{\"expire_seconds\": 604800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": PARAM_DATA}}}";
+        String tempStrParam = "{\"expire_seconds\": 604800, \"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"PARAM_DATA\"}}}";
+        String permNumParam = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": PARAM_DATA}}}";
+        String permStrParam = "{\"action_name\": \"QR_LIMIT_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"PARAM_DATA\"}}}";
+
+        return "";
     }
 }

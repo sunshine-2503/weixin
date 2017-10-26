@@ -113,6 +113,20 @@
             <version>1.4.9</version>
         </dependency>
 
+        <!-- 引入支付宝jar包 -->
+        <dependency>
+            <groupId>com.alipay</groupId>
+            <artifactId>sdk-java</artifactId>
+            <version>20171012102412</version>
+        </dependency>
+
+        <!-- commons-logging 使用支付宝接口需要引入的jar包 -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

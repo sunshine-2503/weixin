@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
     <title>弘承持信</title>
     <script type="text/javascript">
-        var obj = new WxLogin({
-            id:"weixin-login",
-            appid: "",
-            scope: "",
-            redirect_uri: "",
-            state: "",
-            style: "",
-            href: ""
-        });
+//        var obj = new WxLogin({
+//            id:"weixin-login",
+//            appid: "",
+//            scope: "",
+//            redirect_uri: "",
+//            state: "",
+//            style: "",
+//            href: ""
+//        });
     </script>
 </head>
 <body>
@@ -24,17 +24,46 @@
         <a th:href="@{/user/login}">登录</a>
         <div id="weixin-login"></div>
         -->
-
-        <a th:if="${session.LOGIN_USER==null}" th:href="@{/user/login}">登录</a>
+        <p>
+            <th:block th:if="${#locale.getCountry().equals('US')}">
+                <a th:href="@{/(lang=ch_ZN)}" th:text="#{Chinese}"></a>
+            </th:block>
+            <th:block th:if="${#locale.getCountry().equals('ZN')}">
+                <a th:href="@{/(lang=en_US)}" th:text="#{English}"></a>
+            </th:block>
+        </p>
+        <p th:if="${session.LOGIN_USER==null}">
+            <a th:href="@{/user/alipayLogin}" th:text="#{AlipayLogin}"></a><br/>
+            <a th:href="@{/user/weiboLogin}" th:text="#{SinaLogin}"></a>
+        </p>
         <div th:if="${session.LOGIN_USER!=null}">
             <h3>用户信息</h3>
+            <!-- 微信用户信息
             <p>头像：<img width="40rem" height="40rem" th:src="${session.LOGIN_USER.headimgurl}"/></p>
             <p th:text="'昵称：'+${session.LOGIN_USER.nickname}"></p>
             <p th:text="'性别：'+${session.LOGIN_USER.sex==1?'男':(session.LOGIN_USER.sex==2?'女':'未知')}"></p>
             <p th:text="'地址：'+${session.LOGIN_USER.province+'-'+session.LOGIN_USER.city}"></p>
             <p th:text="'openid：'+${session.LOGIN_USER.openid}"></p>
+            -->
+
+            <!-- 支付宝用户信息
+            <p>头像：<img width="40rem" height="40rem" th:src="${session.LOGIN_USER.avatar}"/></p>
+            <p th:text="'昵称：'+${session.LOGIN_USER.nickName}"></p>
+            <p th:text="'性别：'+${session.LOGIN_USER.gender=='m'?'男':(session.LOGIN_USER.gender=='f'?'女':'未知')}"></p>
+            <p th:text="'地址：'+${session.LOGIN_USER.province+'-'+session.LOGIN_USER.city}"></p>
+            <p th:text="'userId：'+${session.LOGIN_USER.userId}"></p>
+            -->
+
+            <!-- 微博用户信息 -->
+            <p>头像：<img width="40rem" height="40rem" th:src="${session.LOGIN_USER.profileImageUrl}"/></p>
+            <p th:text="'昵称：'+${session.LOGIN_USER.screenName}"></p>
+            <p th:text="'性别：'+${session.LOGIN_USER.gender=='m'?'男':(session.LOGIN_USER.gender=='f'?'女':'未知')}"></p>
+            <p th:text="'地址：'+${session.LOGIN_USER.province+'-'+session.LOGIN_USER.city}"></p>
+            <p th:text="'uid：'+${session.LOGIN_USER.id}"></p>
         </div>
 
+        <!-- 跳转到用户信息页面 -->
+        <a th:href="@{/user/showUserInfo}" th:text="#{UserCenter}"></a>
     </div>
 </body>
 </html>
